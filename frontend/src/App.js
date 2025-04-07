@@ -61,6 +61,7 @@ function App() {
     setIsLoading(true);
     try {
       const data = await getRecommendations(userPreferences, browsingHistory);
+      console.log("RECOMMENDATION API RESPONSE:", data);
       setRecommendations(data.recommendations || []);
     } catch (error) {
       console.error('Error getting recommendations:', error);

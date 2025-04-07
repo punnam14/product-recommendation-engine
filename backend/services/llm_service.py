@@ -1,4 +1,6 @@
 import openai
+import requests
+import json
 from config import config
 
 class LLMService:
@@ -14,6 +16,8 @@ class LLMService:
         self.model_name = config['MODEL_NAME']
         self.max_tokens = config['MAX_TOKENS']
         self.temperature = config['TEMPERATURE']
+        self.api_key = config['OPENAI_API_KEY']
+        self.gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model_name}:generateContent?key={self.api_key}"
     
     def generate_recommendations(self, user_preferences, browsing_history, all_products):
         """
@@ -44,20 +48,25 @@ class LLMService:
         
         # Call the LLM API
         try:
-            response = openai.ChatCompletion.create(
-                model=self.model_name,
-                messages=[
-                    {"role": "system", "content": "You are a helpful eCommerce product recommendation assistant."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=self.max_tokens,
-                temperature=self.temperature
+            response = requests.post(
+                self.gemini_url,
+                headers={"Content-Type": "application/json"},
+                json={
+                    "contents": [{
+                        "parts": [{"text": prompt}]
+                    }]
+                }
             )
+
+            if response.status_code != 200:
+                raise Exception(f"Gemini API error: {response.text}")
+
+            raw_text = response.json()['candidates'][0]['content']['parts'][0]['text']
+            print("RAW LLM RESPONSE:", raw_text)
             
             # Parse the LLM response to extract recommendations
             # IMPLEMENT YOUR RESPONSE PARSING LOGIC HERE
-            recommendations = self._parse_recommendation_response(response.choices[0].message.content, all_products)
-            
+            recommendations = self._parse_recommendation_response(raw_text, all_products)
             return recommendations
             
         except Exception as e:
@@ -96,11 +105,24 @@ class LLMService:
             prompt += f"- {product['name']} (Category: {product['category']}, Price: ${product['price']})\n"
         
         # Add instructions for the response format
-        prompt += "\nPlease recommend 5 products from the catalog that match the user's preferences and browsing history. For each recommendation, provide the product ID, name, and a brief explanation of why you're recommending it.\n"
-        
-        # Add response format instructions
+        prompt += (
+            "\nPlease recommend 5 products from the catalog that match the user's preferences and browsing history.\n"
+            "For each recommendation, include:\n"
+            "- 'product_id': must match an existing ID from the catalog below\n"
+            "- 'explanation': a friendly, persuasive message that tells the user why they'll love this product\n"
+            "  — Use a tone like a shopping assistant helping them, not a developer or analyst.\n"
+            "  — Speak directly to the user (use phrases like 'you' and 'your').\n"
+            "  — Mention things like preferences, categories, or brands in a natural way.\n"
+            "- 'score': your confidence in the recommendation, 1 to 10.\n"
+        )
         prompt += "\nFormat your response as a JSON array with objects containing 'product_id', 'explanation', and 'score' (1-10 indicating confidence)."
+        prompt += ("\nIMPORTANT: Only recommend products that exist in the following catalog. "
+                    "Use the exact 'id' values provided below. Do not invent product names or IDs.\n")
         
+        prompt += "\nHere are product IDs and names in the catalog:\n"
+        for product in all_products[:20]:  
+            prompt += f"- {product['id']}: {product['name']}\n"
+
         # You would likely want to include the product catalog in the prompt
         # But be careful about token limits!
         # For a real implementation, you might need to filter the catalog to relevant products first
@@ -141,11 +163,13 @@ class LLMService:
             
             json_str = llm_response[start_idx:end_idx]
             rec_data = json.loads(json_str)
+            print("PARSED LLM JSON RESPONSE:", rec_data)
             
             # Enrich recommendations with full product details
             recommendations = []
             for rec in rec_data:
                 product_id = rec.get('product_id')
+                print("Matching LLM product_id:", rec.get("product_id"))
                 product_details = None
                 
                 # Find the full product details
@@ -155,11 +179,14 @@ class LLMService:
                         break
                 
                 if product_details:
+                    print("Matched product:", product_details["id"])
                     recommendations.append({
                         "product": product_details,
                         "explanation": rec.get('explanation', ''),
                         "confidence_score": rec.get('score', 5)
                     })
+                else:
+                    print("Could not find product_id:", product_id)
             
             return {
                 "recommendations": recommendations,
