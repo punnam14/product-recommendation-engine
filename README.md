@@ -1,4 +1,3 @@
-# i95dev AI Engineering Intern - Take-Home Assignment
 ## AI-Powered Product Recommendation Engine
 
 ### Overview
