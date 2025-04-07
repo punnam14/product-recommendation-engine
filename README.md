@@ -2,29 +2,27 @@
 
 ### Overview
 
-Welcome to the i95dev AI Engineering Intern take-home assignment! This project is designed to evaluate your skills in working with LLMs, prompt engineering, and full-stack development in an eCommerce context.
+This project builds a simplified product recommendation system that leverages LLMs to generate personalized recommendations based on user preferences and browsing history. This system demonstrates techniques such as prompt engineering, building APIs, and creating a functional frontend interface.
 
-Your task is to build a simplified product recommendation system that leverages LLMs to generate personalized recommendations based on user preferences and browsing history. This system should demonstrate your ability to effectively engineer prompts, build APIs, and create a functional frontend interface.
-
-### Project Requirements
+### Project 
 
 #### Backend (Python)
-- Develop a REST API using Flask that interfaces with an LLM (OpenAI GPT-3.5-turbo or similar)
-- Implement prompt engineering to optimize product recommendations based on user preferences
-- Create endpoints for:
+- Develops a REST API that interfaces with an LLM (Gemini - gemini-2.0-flash)
+- Implements prompt engineering to optimize product recommendations based on user preferences
+- Creates endpoints for:
   - Accepting user preference data
   - Processing browsing history
   - Returning personalized product recommendations with explanations
 
 #### Frontend (React)
-- Build a clean interface showing the product catalog
-- Implement a user preference form to capture interests (e.g., preferences for categories, price ranges, styles)
-- Create a browsing history simulation (users can click on products to add them to history)
-- Display personalized recommendations with reasoning from the LLM
+- Builds a clean interface showing the product catalog
+- Implements a user preference form to capture interests (e.g., preferences for categories, price ranges, styles)
+- Creates a browsing history simulation (users can click on products to add them to history)
+- Displays personalized recommendations with reasoning from the LLM
 
 ### Starter Kit
 
-We've provided a starter kit to help you focus on the core technical challenges rather than boilerplate setup. The kit includes:
+I've provided a starter kit. The kit includes:
 
 #### Backend Structure
 ```
@@ -72,7 +70,7 @@ frontend/
 
 ### Sample Dataset
 
-We've provided a sample product catalog (`products.json`) that contains 50 products across various categories. Each product has the following structure:
+I've provided a sample product catalog (`products.json`) that contains 50 products across various categories. Each product has the following structure:
 
 ```json
 {
@@ -100,79 +98,32 @@ The dataset includes products from categories such as:
 ### Key Implementation Guidelines
 
 #### LLM Integration
-- You should use OpenAI's API (GPT-3.5-turbo is sufficient) or another LLM API of your choice
-- Implement proper error handling for API calls
-- Use appropriate context windows and token limits
+- Uses Gemini - gemini-2.0-flash 
+- Implements proper error handling for API calls
+- Uses appropriate context windows and token limits
 
 #### Prompt Engineering
-- Design prompts that effectively leverage product metadata and user preferences
-- Ensure your prompts provide reasoning for recommendations
-- Consider how to handle context limitations for larger product catalogs
+- Designs prompts that effectively leverage product metadata and user preferences
+- Ensures your prompts provide reasoning for recommendations
+- Considers how to handle context limitations for larger product catalogs
 
 #### API Design
-- Create RESTful endpoints with proper request/response formats
-- Implement appropriate error handling
-- Consider performance and optimization
+- Creates RESTful endpoints with proper request/response formats
+- Implements appropriate error handling
+- Considers performance and optimization
 
 #### React Frontend
-- Focus on clean, functional UI rather than elaborate designs
-- Implement responsive components that adapt to different screen sizes
-- Use React state management appropriately (useState, useContext, etc.)
+- Focuses on clean, functional UI rather than elaborate designs
+- Implements responsive components that adapt to different screen sizes
+- Uses React state management appropriately (useState, useContext, etc.)
 
-### Stretch Goals (Optional)
-
-If you complete the core requirements and want to demonstrate additional skills, consider implementing one or more of these stretch goals:
+### In Progress 
 
 1. Add user authentication and profile persistence
 2. Implement caching for LLM responses to improve performance
 3. Add filtering and sorting options to the product catalog
 4. Create A/B testing for different prompt strategies
 5. Add unit and/or integration tests
-
-### Evaluation Criteria
-
-Your submission will be evaluated based on:
-
-1. **Prompt Engineering Quality (30%)**
-   - Effectiveness of prompts in generating relevant recommendations
-   - Context handling and optimization
-   - Clarity and usefulness of recommendation explanations
-
-2. **API Design and Implementation (25%)**
-   - RESTful API design and implementation
-   - Error handling and edge cases
-   - Code organization and structure
-
-3. **Frontend Implementation (25%)**
-   - Component architecture and organization
-   - User experience and interface design
-   - State management and data flow
-
-4. **Code Quality (20%)**
-   - Code readability and documentation
-   - Proper use of version control (commit messages, organization)
-   - Error handling and edge cases
-
-### Submission Guidelines
-
-1. **GitHub Repository**
-   - Create a **public** GitHub repository with your implementation
-   - Ensure your repository includes:
-     - Complete source code for both frontend and backend
-     - A comprehensive README with setup instructions
-     - Documentation of your approach, especially for prompt engineering
-
-2. **Deployment (Optional)**
-   - If possible, deploy your application (e.g., Vercel, Netlify, Heroku)
-   - Include the deployed URL in your README
-
-3. **Submission Timeline**
-   - Complete the assignment within 7 days of receiving it
-   - Submit by **replying to the original assessment email** with:
-     - GitHub repository link
-     - Brief overview of your approach (1-2 paragraphs)
-     - Any challenges you faced and how you overcame them
-     - Time spent on the assignment
 
 ### Setup Instructions
 
@@ -195,10 +146,8 @@ Your submission will be evaluated based on:
 ### Notes and Tips
 
 - **API Keys**: Never commit your API keys to GitHub. Use environment variables.
-- **Time Management**: Focus on core functionality first, then enhance if time permits.
 - **Documentation**: Document your approach, especially your prompt engineering strategy.
 - **Code Quality**: Clean, well-organized code is more important than feature quantity.
-- **Questions**: If you have questions, email recruiting@i95dev.com with "Question: AI Intern Take-Home" as the subject.
 
 ### Resources
 
@@ -207,4 +156,3 @@ Your submission will be evaluated based on:
 - [React Documentation](https://reactjs.org/docs/getting-started.html)
 - [Prompt Engineering Guide](https://www.promptingguide.ai/)
 
-We're excited to see your implementation and approach! Good luck!
