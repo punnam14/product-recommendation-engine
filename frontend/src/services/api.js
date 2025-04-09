@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:4000/api';
+// const API_BASE_URL = 'http://localhost:4000/api';
+const API_BASE_URL = 'https://product-recommendation-engine.onrender.com/api';
 
 // Fetch all products from the API
 export const fetchProducts = async () => {
