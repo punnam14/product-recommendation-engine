@@ -12,6 +12,38 @@ This project builds a product recommendation system that leverages LLMs to gener
 - **Backend** (FastAPI + Render):  
   🔗 [https://product-recommendation-engine.onrender.com/api/products](https://product-recommendation-engine.onrender.com/api/products)
 
+### Setup Instructions
+
+#### Backend Setup
+1. Navigate to the `backend` directory
+2. Create a virtual environment: `python -m venv venv`
+3. Activate the virtual environment:
+   - Windows: `venv\Scripts\activate`
+   - macOS/Linux: `source venv/bin/activate`
+4. Install dependencies: `pip install -r requirements.txt`
+5. Create a `.env` file based on `.env.example` and add your LLM API key
+6. Run the application: `python app.py`
+
+#### Frontend Setup
+1. Navigate to the `frontend` directory
+2. Install dependencies: `npm install`
+3. Start the development server: `npm start`
+4. The application should open at `http://localhost:3000`
+
+#### Testing
+1. Navigate to the root directory.
+2. Run the following command: `python tests/test_services.py`
+3. Run the following command: `python tests/test.py`
+4. The script will output the result of each function test.
+
+#### Logging
+- To monitor LLM token usage and help optimize prompt design, the backend includes a lightweight logging system that estimates how many tokens were sent and received per API call.
+- It logs Input Tokens: Approximate count of tokens sent in the prompt (based on character length).
+- Output Tokens: Approximate count of tokens returned by the LLM response.
+- Timestamps: Logs the date and time of each interaction.
+- Logs are saved to `logs/output_token_log.txt`
+- ![Screenshot 2025-04-08 at 11 04 38 PM](https://github.com/user-attachments/assets/a89e9e77-9654-4e1a-9b1e-c437d7fa2882)
+
 ### Recommendation Generation Logic (LLM Service)
 
 The recommendation engine is powered by a custom-built `LLMService` that leverages Google's Gemini model to generate personalized product suggestions based on user preferences and browsing behavior.
@@ -40,13 +72,13 @@ A structured prompt is crafted containing:
 - The response is parsed to extract product IDs and their associated explanations.
 - Each ID is mapped back to the full product metadata before returning final recommendations to the user.
 
-#### Additional Enhancements
+**Additional Enhancements**:
 
 - Uses **semantic tag expansion** via the LLM to discover related product tags based on the user’s behavior.
 - Logs estimated token usage per call to track prompt size and response length.
 - Includes **fallback logic** to ensure a minimum number of candidates are always available for recommendation.
 
-This modular structure ensures **scalability**, **tunability**, and a high degree of control over both *what* is sent to the LLM and *how* the results are interpreted.
+This modular structure ensures **tunability** and a high degree of control over both *what* is sent to the LLM and *how* the results are interpreted.
 
 ### Project 
 
@@ -164,36 +196,6 @@ The dataset includes products from categories such as:
 3. Add filtering and sorting options to the product catalog
 4. Create A/B testing for different prompt strategies
 5. Add unit and/or integration tests
-
-### Setup Instructions
-
-#### Backend Setup
-1. Navigate to the `backend` directory
-2. Create a virtual environment: `python -m venv venv`
-3. Activate the virtual environment:
-   - Windows: `venv\Scripts\activate`
-   - macOS/Linux: `source venv/bin/activate`
-4. Install dependencies: `pip install -r requirements.txt`
-5. Create a `.env` file based on `.env.example` and add your LLM API key
-6. Run the application: `python app.py`
-
-#### Frontend Setup
-1. Navigate to the `frontend` directory
-2. Install dependencies: `npm install`
-3. Start the development server: `npm start`
-4. The application should open at `http://localhost:3000`
-
-#### Testing
-1. Navigate to the root directory.
-2. Run the following command: `python tests/test_services.py`
-3. Run the following command: `python tests/test.py`
-4. The script will output the result of each function test.
-
-#### Logging
-- To monitor LLM token usage and help optimize prompt design, the backend includes a lightweight logging system that estimates how many tokens were sent and received per API call.
-- It logs Input Tokens: Approximate count of tokens sent in the prompt (based on character length).
-- Output Tokens: Approximate count of tokens returned by the LLM response.
-- Timestamps: Logs the date and time of each interaction.
 
 ### Notes and Tips
 
