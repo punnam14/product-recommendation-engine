@@ -37,12 +37,12 @@ This project builds a product recommendation system that leverages LLMs to gener
 4. The script will output the result of each function test.
 
 #### Logging
-- To monitor LLM token usage and help optimize prompt design, the backend includes a lightweight logging system that estimates how many tokens were sent and received per API call.
-- It logs Input Tokens: Approximate count of tokens sent in the prompt (based on character length).
-- Output Tokens: Approximate count of tokens returned by the LLM response.
-- Timestamps: Logs the date and time of each interaction.
-- Logs are saved to `logs/output_token_log.txt`
-- ![Screenshot 2025-04-08 at 11 04 38 PM](https://github.com/user-attachments/assets/a89e9e77-9654-4e1a-9b1e-c437d7fa2882)
+1. To monitor LLM token usage and help optimize prompt design, the backend includes a lightweight logging system that estimates how many tokens were sent and received per API call.
+2. It logs Input Tokens: Approximate count of tokens sent in the prompt (based on character length).
+3. Output Tokens: Approximate count of tokens returned by the LLM response.
+4. Timestamps: Logs the date and time of each interaction.
+5. Logs are saved to `logs/output_token_log.txt`
+6. ![Screenshot 2025-04-08 at 11 04 38 PM](https://github.com/user-attachments/assets/a89e9e77-9654-4e1a-9b1e-c437d7fa2882)
 
 ### Recommendation Generation Logic (LLM Service)
 
