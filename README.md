@@ -23,12 +23,14 @@ This project builds a product recommendation system that leverages LLMs to gener
 4. Install dependencies: `pip install -r requirements.txt`
 5. Create a `.env` file based on `.env.example` and add your LLM API key
 6. Run the application: `python app.py`
+7. The backend runs on `http://0.0.0.0:4000`
 
 #### Frontend Setup
 1. Navigate to the `frontend` directory
-2. Install dependencies: `npm install`
-3. Start the development server: `npm start`
-4. The application should open at `http://localhost:3000`
+2. When running locally, navigate to `services/api.js` and uncomment line 1 `const API_BASE_URL = 'http://localhost:4000/api';`
+3. Install dependencies: `npm install`
+4. Start the development server: `npm start`
+5. The application should open at `http://localhost:3000`
 
 #### Testing
 1. Navigate to the root directory.
