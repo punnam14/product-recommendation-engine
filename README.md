@@ -43,8 +43,8 @@ This project builds a product recommendation system that leverages LLMs to gener
 2. It logs Input Tokens: Approximate count of tokens sent in the prompt (based on character length).
 3. Output Tokens: Approximate count of tokens returned by the LLM response.
 4. Timestamps: Logs the date and time of each interaction.
-5. Logs are saved to `logs/output_token_log.txt`
-![Screenshot 2025-04-08 at 11 04 38 PM](https://github.com/user-attachments/assets/a89e9e77-9654-4e1a-9b1e-c437d7fa2882)
+5. Logs are saved to `logs/output_token_log.txt`  
+![Screenshot 2025-04-08 at 11 04 38 PM](https://github.com/user-attachments/assets/a89e9e77-9654-4e1a-9b1e-c437d7fa2882)  
 
 ### Recommendation Generation Logic (LLM Service)
 
