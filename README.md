@@ -16,14 +16,15 @@ This project builds a product recommendation system that leverages LLMs to gener
 
 #### Backend Setup
 1. Navigate to the `backend` directory
-2. Create a virtual environment: `python -m venv venv`
-3. Activate the virtual environment:
+2. Create a `.env` file based on `.env.example` provided - add your Gemini API key and model name `gemini-2.0-flash`
+3. Create a virtual environment: `python -m venv venv`
+4. Activate the virtual environment:
    - Windows: `venv\Scripts\activate`
    - macOS/Linux: `source venv/bin/activate`
-4. Install dependencies: `pip install -r requirements.txt`
-5. Create a `.env` file based on `.env.example` and add your LLM API key
-6. Run the application: `python app.py`
-7. The backend runs on `http://0.0.0.0:4000`
+5. Install dependencies: `pip install -r requirements.txt`
+6. Create a `.env` file based on `.env.example` and add your LLM API key
+7. Run the application: `python app.py`
+8. The backend runs on `http://0.0.0.0:4000`
 
 #### Frontend Setup
 1. Navigate to the `frontend` directory
@@ -46,11 +47,11 @@ This project builds a product recommendation system that leverages LLMs to gener
 5. Logs are saved to `logs/output_token_log.txt`  
 ![Screenshot 2025-04-08 at 11 04 38 PM](https://github.com/user-attachments/assets/a89e9e77-9654-4e1a-9b1e-c437d7fa2882)  
 
-### Recommendation Generation Logic (LLM Service)
+### Recommendation Generation Logic
 
-The recommendation engine is powered by a custom-built `LLMService` that leverages Google's Gemini model to generate personalized product suggestions based on user preferences and browsing behavior.
+The recommendation engine is powered by a custom-built `llm_service.py` file that leverages Google's Gemini model to generate personalized product suggestions based on user preferences and browsing behavior.
 
-#### 🔍 High-Level Approach
+#### High-Level Approach
 
 **Filtering Phase**:  
 Before involving the LLM, we narrow down the product catalog to the most relevant candidates by applying filters such as:  
@@ -169,7 +170,7 @@ The dataset includes products from categories such as:
 - Beauty & Personal Care (skincare, makeup, fragrances, etc.)
 - Sports & Outdoors (equipment, apparel, accessories, etc.)
 
-### Key Implementation Guidelines
+### Implementation Guidelines
 
 #### LLM Integration
 - Uses Gemini - gemini-2.0-flash 
@@ -178,7 +179,7 @@ The dataset includes products from categories such as:
 
 #### Prompt Engineering
 - Designs prompts that effectively leverage product metadata and user preferences
-- Ensures your prompts provide reasoning for recommendations
+- Ensures prompts provide reasoning for recommendations
 - Considers how to handle context limitations for larger product catalogs
 
 #### API Design
@@ -197,7 +198,7 @@ The dataset includes products from categories such as:
 2. Implement caching for LLM responses to improve performance
 3. Add filtering and sorting options to the product catalog
 4. Create A/B testing for different prompt strategies
-5. Add unit and/or integration tests
+5. Add more unit and/or integration tests
 
 ### Notes and Tips
 
