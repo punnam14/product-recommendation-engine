@@ -19,7 +19,7 @@ import requests
 import time
 import sys
 
-API_BASE_URL = "http://localhost:5000/api"
+API_BASE_URL = "http://localhost:4000/api"
 
 def print_header(message):
     print("\n" + "="*80)
