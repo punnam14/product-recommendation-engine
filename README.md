@@ -183,6 +183,11 @@ The dataset includes products from categories such as:
 3. Start the development server: `npm start`
 4. The application should open at `http://localhost:3000`
 
+#### Testing - Internal Logic
+1. Navigate to the root directory.
+2. Run the following command: `python tests/test_llm_logic.py`
+3. The script will output the result of each internal function test.
+
 ### Notes and Tips
 
 - **API Keys**: Never commit your API keys to GitHub. Use environment variables.
