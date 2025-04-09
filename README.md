@@ -191,8 +191,7 @@ The dataset includes products from categories such as:
 
 #### Logging
 - To monitor LLM token usage and help optimize prompt design, the backend includes a lightweight logging system that estimates how many tokens were sent and received per API call.
-- What It Logs:
-- Input Tokens: Approximate count of tokens sent in the prompt (based on character length).
+- It logs Input Tokens: Approximate count of tokens sent in the prompt (based on character length).
 - Output Tokens: Approximate count of tokens returned by the LLM response.
 - Timestamps: Logs the date and time of each interaction.
 
