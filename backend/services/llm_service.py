@@ -305,7 +305,9 @@ class LLMService:
        selected_categories = set(user_preferences.get("categories", []))
        browsed_categories = {p["category"] for p in browsed_products}
        valid_categories = selected_categories.union(browsed_categories)
+       selected_brands = set(user_preferences.get("brands", []))
        browsed_brands = {p["brand"] for p in browsed_products}
+       valid_brands = selected_brands.union(browsed_brands)
 
        # Category-based match
        category_matches = [
@@ -316,7 +318,7 @@ class LLMService:
        # Brand-based match
        brand_matches = [
            p for p in all_products
-           if p["price"] <= price_cap and p["brand"] in browsed_brands
+           if p["price"] <= price_cap and p["brand"] in valid_brands
        ]
 
        # Tag-based match 
