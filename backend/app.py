@@ -73,5 +73,5 @@ async def generic_exception_handler(request: Request, exc: Exception):
     }
 
 if __name__ == "__main__":
-    # Run the API with uvicorn
-    uvicorn.run("app:app", host="0.0.0.0", port=4000, reload=True)
+    port = int(os.environ.get("PORT", 4000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port)
