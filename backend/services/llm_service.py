@@ -2,7 +2,8 @@ import openai
 import requests
 import json
 from config import config
-
+import os
+from datetime import datetime
 
 class LLMService:
    """
@@ -59,17 +60,22 @@ class LLMService:
                json={
                    "contents": [{
                        "parts": [{"text": prompt}]
-                   }]
+                   }],
+                   "generationConfig": {
+                       "temperature": self.temperature,
+                       "maxOutputTokens": self.max_tokens
+                   }
                }
            )
-
 
            if response.status_code != 200:
                raise Exception(f"Gemini API error: {response.text}")
 
-
            raw_text = response.json()['candidates'][0]['content']['parts'][0]['text']
            print("RAW LLM RESPONSE:", raw_text)
+
+           # Log token usage
+           self._log_token_counts(prompt, raw_text)
           
            # Parse the LLM response to extract recommendations
            # IMPLEMENT YOUR RESPONSE PARSING LOGIC HERE
@@ -220,7 +226,7 @@ class LLMService:
        Parameters:
        - browsed_tags (list): List of tags from browsed products
        - all_tags (set): Set of all unique tags in the product catalog
-       
+
        Returns:
        - list: Tags the LLM considers semantically related
        """
@@ -276,9 +282,9 @@ class LLMService:
        - Max price cap based on user's price range
        - Categories from user selection and browsing history
        - Brands from browsing history
-       - Tags related to browsing history (via LLM reasoning)
+       - Tags related to browsing history (via LLM)
        - Excludes already browsed products
-       - Ensures at least 20 products, topped up with smart fallbacks
+       - Ensures at least 20 products, topped up with fallbacks
        - Returns top 50 results sorted by rating and inventory
        """
        MAX_PRODUCTS = 50
@@ -336,7 +342,7 @@ class LLMService:
        combined = {p["id"]: p for p in category_matches + brand_matches + tag_matches}
        merged_products = [p for pid, p in combined.items() if pid not in browsed_ids]
 
-       # If still < MIN_PRODUCTS, backfill from browsed categories
+       # If still < MIN_PRODUCTS backfill from browsed categories
        if len(merged_products) < MIN_PRODUCTS:
            missing = MIN_PRODUCTS - len(merged_products)
            fallback_candidates = [
@@ -370,3 +376,27 @@ class LLMService:
            print(f"- {p['id']}: {p['name']} | ${p['price']} | {p['category']} | {p['brand']} | Rating: {p['rating']}")
        print("=====================================================================\n")
        return top_filtered
+
+   def _log_token_counts(self, prompt, response_text):
+       """
+       Logs the estimated number of input and output tokens for each LLM call.
+       Gemini ≈ 1 token per 4 characters.
+       """
+       try:
+           input_token_count = int(len(prompt) / 4)
+           output_token_count = int(len(response_text) / 4)
+           log_entry = (
+               f"{datetime.now()} - Token Usage Log\n"
+               f"Input Tokens : {input_token_count}\n"
+               f"Output Tokens: {output_token_count}\n"
+               f"{'-' * 60}\n"
+           )
+
+           log_file = "logs/output_token_log.txt"
+           os.makedirs(os.path.dirname(log_file), exist_ok=True)
+
+           with open(log_file, "a") as f:
+               f.write(log_entry)
+
+       except Exception as e:
+           print(f"Failed to log token counts: {str(e)}")

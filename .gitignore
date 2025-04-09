@@ -13,6 +13,7 @@ backend/.env
 backend/venv/
 backend/.mypy_cache/
 backend/venv/.pyvenv.cfg/
+backend/logs/
 
 #React
 frontend/node_modules/

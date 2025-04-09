@@ -71,7 +71,7 @@ def test_filter_products_for_llm_logic():
             "categories": ["Home"],
             "brands": []
         }
-        browsing = [sample_products[2]]  # Browsing 'Eco Bottle'
+        browsing = [sample_products[2]]  
         result = llm._filter_products_for_llm(user_prefs, browsing, sample_products)
 
         if not result:
@@ -117,7 +117,7 @@ def main():
     tests = [
         ("LLMService._filter_products_for_llm", test_filter_products_for_llm_logic),
         ("LLMService._get_products_by_tags", test_get_products_by_tags),
-        ("LLMService._get_related_tags_from_llm", test_get_related_tags_from_llm),  # This hits the real API
+        ("LLMService._get_related_tags_from_llm", test_get_related_tags_from_llm), 
     ]
 
     passed = 0
