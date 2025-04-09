@@ -183,10 +183,18 @@ The dataset includes products from categories such as:
 3. Start the development server: `npm start`
 4. The application should open at `http://localhost:3000`
 
-#### Testing - Internal Logic
+#### Testing
 1. Navigate to the root directory.
-2. Run the following command: `python tests/test_llm_logic.py`
-3. The script will output the result of each internal function test.
+2. Run the following command: `python tests/test_services.py`
+3. Run the following command: `python tests/test.py`
+4. The script will output the result of each function test.
+
+#### Logging
+- To monitor LLM token usage and help optimize prompt design, the backend includes a lightweight logging system that estimates how many tokens were sent and received per API call.
+- What It Logs:
+- Input Tokens: Approximate count of tokens sent in the prompt (based on character length).
+- Output Tokens: Approximate count of tokens returned by the LLM response.
+- Timestamps: Logs the date and time of each interaction.
 
 ### Notes and Tips
 
