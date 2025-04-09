@@ -2,7 +2,51 @@
 
 ### Overview
 
-This project builds a simplified product recommendation system that leverages LLMs to generate personalized recommendations based on user preferences and browsing history. This system demonstrates techniques such as prompt engineering, building APIs, and creating a functional frontend interface.
+This project builds a product recommendation system that leverages LLMs to generate personalized recommendations based on user preferences and browsing history. This system demonstrates techniques such as prompt engineering, building APIs, and creating a functional frontend interface.
+
+### 🌐 Live Demo
+
+- **Frontend** (React + Netlify):  
+  🔗 [https://product-reccomendation-engine.netlify.app](https://product-reccomendation-engine.netlify.app)  
+
+- **Backend** (FastAPI + Render):  
+  🔗 [https://product-recommendation-engine.onrender.com/api/products](https://product-recommendation-engine.onrender.com/api/products)
+
+### Recommendation Generation Logic (LLM Service)
+
+The recommendation engine is powered by a custom-built `LLMService` that leverages Google's Gemini model to generate personalized product suggestions based on user preferences and browsing behavior.
+
+#### 🔍 High-Level Approach
+
+**Filtering Phase**:  
+Before involving the LLM, we narrow down the product catalog to the most relevant candidates by applying filters such as:  
+- Price range (`under50`, `50to100`, `over100`)
+- User-selected and browsed categories
+- Brands inferred from the user’s browsing history
+- Related tags (identified via a secondary LLM call using browsing tags)
+
+**Prompt Engineering**:  
+A structured prompt is crafted containing:
+
+- User preferences and a summary of their browsing history
+- A filtered product list to ensure only known items are recommended
+- Clear instructions to return a JSON list with:
+  - `product_id`
+  - `explanation` (in a shopping-assistant tone)
+  - `score` (confidence rating 1–10)
+
+**LLM Response Handling**:
+- The prompt is sent to the Gemini API for content generation.
+- The response is parsed to extract product IDs and their associated explanations.
+- Each ID is mapped back to the full product metadata before returning final recommendations to the user.
+
+#### Additional Enhancements
+
+- Uses **semantic tag expansion** via the LLM to discover related product tags based on the user’s behavior.
+- Logs estimated token usage per call to track prompt size and response length.
+- Includes **fallback logic** to ensure a minimum number of candidates are always available for recommendation.
+
+This modular structure ensures **scalability**, **tunability**, and a high degree of control over both *what* is sent to the LLM and *how* the results are interpreted.
 
 ### Project 
 
@@ -19,10 +63,6 @@ This project builds a simplified product recommendation system that leverages LL
 - Implements a user preference form to capture interests (e.g., preferences for categories, price ranges, styles)
 - Creates a browsing history simulation (users can click on products to add them to history)
 - Displays personalized recommendations with reasoning from the LLM
-
-### Starter Kit
-
-I've provided a starter kit. The kit includes:
 
 #### Backend Structure
 ```
@@ -70,7 +110,7 @@ frontend/
 
 ### Sample Dataset
 
-I've provided a sample product catalog (`products.json`) that contains 50 products across various categories. Each product has the following structure:
+The sample product catalog (`products.json`) contains 50 products across various categories. Each product has the following structure:
 
 ```json
 {
