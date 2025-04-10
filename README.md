@@ -13,7 +13,7 @@ This project builds a product recommendation system that leverages LLMs to gener
   🔗 [https://product-recommendation-engine.onrender.com/api/products](https://product-recommendation-engine.onrender.com/api/products)
 
 - **Video Walkthrough**:  
-  🔗 [https://www.youtube.com/watch?v=oJq2-hqFhAM)
+  🔗 [https://www.youtube.com/watch?v=oJq2-hqFhAM](https://www.youtube.com/watch?v=oJq2-hqFhAM)
 
 ### Setup Instructions
 
